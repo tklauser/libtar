@@ -8,6 +8,7 @@ mandir		= @mandir@
 libdir		= @libdir@
 includedir	= @includedir@
 top_srcdir	= @top_srcdir@
+datarootdir	= @datarootdir@
 
 PACKAGE_NAME	= @PACKAGE_NAME@
 PACKAGE_VERSION	= @PACKAGE_VERSION@

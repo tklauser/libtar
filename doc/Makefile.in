@@ -9,6 +9,7 @@ bindir		= @bindir@
 mandir		= @mandir@
 libdir		= @libdir@
 includedir	= @includedir@
+datarootdir	= @datarootdir@
 
 PACKAGE_NAME	= @PACKAGE_NAME@
 PACKAGE_VERSION	= @PACKAGE_VERSION@
