@@ -9,6 +9,7 @@ Copyright (c) 1998-2003 Mark D. Roth
 All rights reserved.
 ]])
 AC_CONFIG_SRCDIR([lib/libtar.h])
+AC_CONFIG_MACRO_DIR([autoconf])
 ENCAP_PKG([], [postinstall-encap])
 
 
