@@ -13,6 +13,7 @@
 #include <internal.h>
 
 #include <stdio.h>
+#include <string.h>
 #include <sys/param.h>
 #include <sys/types.h>
 #include <fcntl.h>
