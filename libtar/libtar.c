@@ -92,6 +92,10 @@ gzopen_frontend(char *pathname, int oflags, int mode)
 		return -1;
 	}
 
+	/* This is a bad thing to do on big-endian lp64 systems, where the
+	   size and placement of integers is different than pointers.
+	   However, to fix the problem 4 wrapper functions would be needed and
+	   an extra bit of data associating GZF with the wrapper functions.  */
 	return (int)gzf;
 }
 
