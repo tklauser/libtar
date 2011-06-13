@@ -29,14 +29,6 @@
 #endif
 
 
-struct linkname
-{
-	char ln_save[MAXPATHLEN];
-	char ln_real[MAXPATHLEN];
-};
-typedef struct linkname linkname_t;
-
-
 static int
 tar_set_file_perms(TAR *t, char *realname)
 {
@@ -99,7 +91,9 @@ int
 tar_extract_file(TAR *t, char *realname)
 {
 	int i;
-	linkname_t *lnp;
+	char *lnp;
+	int pathname_len;
+	int realname_len;
 
 	if (t->options & TAR_NOOVERWRITE)
 	{
@@ -138,11 +132,13 @@ tar_extract_file(TAR *t, char *realname)
 	if (i != 0)
 		return i;
 
-	lnp = (linkname_t *)calloc(1, sizeof(linkname_t));
+	pathname_len = strlen(th_get_pathname(t)) + 1;
+	realname_len = strlen(realname) + 1;
+	lnp = (char *)calloc(1, pathname_len + realname_len);
 	if (lnp == NULL)
 		return -1;
-	strlcpy(lnp->ln_save, th_get_pathname(t), sizeof(lnp->ln_save));
-	strlcpy(lnp->ln_real, realname, sizeof(lnp->ln_real));
+	strcpy(&lnp[0], th_get_pathname(t));
+	strcpy(&lnp[pathname_len], realname);
 #ifdef DEBUG
 	printf("tar_extract_file(): calling libtar_hash_add(): key=\"%s\", "
 	       "value=\"%s\"\n", th_get_pathname(t), realname);
@@ -289,7 +285,7 @@ tar_extract_hardlink(TAR * t, char *realname)
 {
 	char *filename;
 	char *linktgt = NULL;
-	linkname_t *lnp;
+	char *lnp;
 	libtar_hashptr_t hp;
 
 	if (!TH_ISLNK(t))
@@ -305,8 +301,8 @@ tar_extract_hardlink(TAR * t, char *realname)
 	if (libtar_hash_getkey(t->h, &hp, th_get_linkname(t),
 			       (libtar_matchfunc_t)libtar_str_match) != 0)
 	{
-		lnp = (linkname_t *)libtar_hashptr_data(&hp);
-		linktgt = lnp->ln_real;
+		lnp = (char *)libtar_hashptr_data(&hp);
+		linktgt = &lnp[strlen(lnp) + 1];
 	}
 	else
 		linktgt = th_get_linkname(t);
