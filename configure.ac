@@ -10,6 +10,7 @@ All rights reserved.
 ]])
 AC_CONFIG_SRCDIR([lib/libtar.h])
 AC_CONFIG_MACRO_DIR([autoconf])
+AM_INIT_AUTOMAKE([dist-bzip2])
 ENCAP_PKG([], [postinstall-encap])
 
 
