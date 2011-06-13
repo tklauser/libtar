@@ -1,3 +1,37 @@
+libtar 1.2.13 - 2011/06/13
+-------------
+
+This is a maintenance release by Chris Frey, temporarily stepping in for
+Mark Roth.  These maintenance releases are git-based only and can be
+found at: http://repo.or.cz/w/libtar.git
+
+Chris Frey (10):
+      Fixed incorrect URL in readme
+      Added autoconf/ as macro dir
+      Added autogen.sh script to build a fresh configure
+      Renamed autoconf/aclocal.m4 to psg.m4 so aclocal isn't so confused
+      Removed m4 includes, and straightened out [] m4 quoting for modern autoconfs
+      Removed auto-generated files
+      Added datarootdir to Makefile.in's
+      Fixed header warnings
+      Applied Marcin Gibula's patch fixing tar_extract_glob()
+      Changed root Makefile.in to Makefile.am, which make autoreconf workable
+
+Glenn McGrath (1):
+      Use libtool to build dynamic library
+
+James Morrison (1):
+      Document stupidity of tartype_t in libtar.c.
+
+Magnus Holmgren (1):
+      Escape hyphens that should be minus signs in man pages.
+
+Per Lidén (2):
+      Fix memory leak in th_get_pathname
+      Reduce memory used by libtar when extracting files.
+
+------------------------------------------------------------------------------
+
 libtar 1.2.11 - 3/2/03
 -------------
 
