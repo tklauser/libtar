@@ -1,6 +1,6 @@
 dnl ### Normal initialization. ######################################
 AC_INIT([libtar], [1.2.11])
-AC_PREREQ([2.57])
+AC_PREREQ([2.61])
 AC_CONFIG_AUX_DIR([autoconf])
 AC_CONFIG_HEADERS([config.h])
 AC_COPYRIGHT([[
@@ -28,15 +28,15 @@ AC_SUBST([MKDIR])
 
 
 dnl ### Check for compiler et al. ###################################
+AC_USE_SYSTEM_EXTENSIONS
 AC_PROG_CC
-AC_PROG_RANLIB
+AC_PROG_LIBTOOL
 AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
 
 
 dnl ### Compiler characteristics. ##################################
-AC_AIX
 AC_C_CONST
 
 
