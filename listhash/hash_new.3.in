@@ -39,7 +39,7 @@ used to iterate through the hash.  The \fI@LISTHASH_PREFIX@_hashptr_t\fP structu
 has two fields: \fIbucket\fP, which indicates the current bucket in the
 hash, and \fInode\fP, which is a pointer to the current node in the current
 bucket.  To start at the beginning or end of the hash, the caller should
-initialize \fIhp.bucket\fP to -1 and \fIhp.node\fP to \fINULL\fP.
+initialize \fIhp.bucket\fP to \-1 and \fIhp.node\fP to \fINULL\fP.
 
 The \fB@LISTHASH_PREFIX@_hash_search\fP() function searches iteratively through the
 hash \fIh\fP until it finds a node whose contents match \fIdata\fP using
@@ -65,10 +65,10 @@ return 1 when valid data is returned, and 0 at the end of the hash.
 The \fB@LISTHASH_PREFIX@_hash_getkey\fP() and \fB@LISTHASH_PREFIX@_hash_search\fP() functions
 return 1 when a match is found, or 0 otherwise.
 
-The \fB@LISTHASH_PREFIX@_hash_add\fP() function returns 0 on success, or -1 on
+The \fB@LISTHASH_PREFIX@_hash_add\fP() function returns 0 on success, or \-1 on
 error (and sets \fIerrno\fP).
 
-The \fB@LISTHASH_PREFIX@_hash_del\fP() function returns 0 on success, or -1 on
+The \fB@LISTHASH_PREFIX@_hash_del\fP() function returns 0 on success, or \-1 on
 error (and sets \fIerrno\fP).
 .SH SEE ALSO
 .BR @LISTHASH_PREFIX@_list_new (3)

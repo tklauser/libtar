@@ -31,7 +31,7 @@ The \fBtar_append_eof\fP() function writes an EOF marker (two blocks of
 all zeros) to the tar file associated with \fIt\fP.
 .SH RETURN VALUES
 On successful completion, these functions will return 0.  On failure,
-they will return -1 and set \fIerrno\fP to an appropriate value.
+they will return \-1 and set \fIerrno\fP to an appropriate value.
 .SH ERRORS
 The \fBtar_append_*\fP() functions will fail if:
 .IP \fBEINVAL\fP

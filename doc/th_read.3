@@ -20,7 +20,7 @@ tar header associated with \fIt\fP to the tar archive associated
 with \fIt\fP.
 .SH RETURN VALUE
 On successful completion, \fBth_read\fP() and \fBth_write\fP() will
-return 0.  On failure, they will return -1 and set \fIerrno\fP to an
+return 0.  On failure, they will return \-1 and set \fIerrno\fP to an
 appropriate value.
 
 On \fIEOF\fP, \fBth_read\fP() will return 1.

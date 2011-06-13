@@ -81,6 +81,6 @@ The \fB@LISTHASH_PREFIX@_list_next\fP(), \fB@LISTHASH_PREFIX@_list_prev\fP(), an
 returned, or 0 otherwise.
 
 The \fB@LISTHASH_PREFIX@_list_add\fP() and \fB@LISTHASH_PREFIX@_list_add_str\fP() functions
-return 0 on success, or -1 on error.
+return 0 on success, or \-1 on error.
 .SH SEE ALSO
 .BR @LISTHASH_PREFIX@_hash_new (3)
