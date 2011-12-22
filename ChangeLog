@@ -1,3 +1,15 @@
+libtar 1.2.14 - 2011/12/22
+-------------
+
+	This is a maintenance release by Chris Frey, temporarily stepping in
+	for Mark Roth.  These maintenance releases are git-based only and
+	can be found at: http://repo.or.cz/w/libtar.git
+	Both git downloads and tarball downloads are possible at this site.
+
+Chris Frey (1):
+      Fixed truncation check, so 100 char names get GNU extension support when enabled
+
+
 libtar 1.2.13 - 2011/06/13
 -------------
 
