@@ -82,7 +82,7 @@ th_set_path(TAR *t, char *pathname)
 	if (pathname[strlen(pathname) - 1] != '/' && TH_ISDIR(t))
 		strcpy(suffix, "/");
 
-	if (strlen(pathname) > T_NAMELEN && (t->options & TAR_GNU))
+	if (strlen(pathname) > T_NAMELEN-1 && (t->options & TAR_GNU))
 	{
 		/* GNU-style long name */
 		t->th_buf.gnu_longname = strdup(pathname);
@@ -120,7 +120,7 @@ th_set_link(TAR *t, char *linkname)
 	printf("==> th_set_link(th, linkname=\"%s\")\n", linkname);
 #endif
 
-	if (strlen(linkname) > T_NAMELEN && (t->options & TAR_GNU))
+	if (strlen(linkname) > T_NAMELEN-1 && (t->options & TAR_GNU))
 	{
 		/* GNU longlink format */
 		t->th_buf.gnu_longlink = strdup(linkname);
