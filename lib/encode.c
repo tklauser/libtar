@@ -30,7 +30,15 @@ th_finish(TAR *t)
 	int i, sum = 0;
 
 	if (t->options & TAR_GNU)
-		strncpy(t->th_buf.magic, "ustar  ", 8);
+	{
+		/* we're aiming for this result, but must do it in
+		 * two calls to avoid FORTIFY segfaults on some Linux
+		 * systems:
+		 *      strncpy(t->th_buf.magic, "ustar  ", 8);
+		 */
+		strncpy(t->th_buf.magic, "ustar ", 6);
+		strncpy(t->th_buf.version, " ", 2);
+	}
 	else
 	{
 		strncpy(t->th_buf.version, TVERSION, TVERSLEN);
