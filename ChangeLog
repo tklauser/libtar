@@ -1,22 +1,26 @@
-libtar 1.2.14 - 2011/12/22
--------------
+	NOTE:
+	All releases below marked (Chris Frey) are maintenance releases
+	done by Chris Frey, temporarily stepping in for Mark Roth.
+	These releases are git-based only and can be found at:
+		http://repo.or.cz/w/libtar.git
 
-	This is a maintenance release by Chris Frey, temporarily stepping in
-	for Mark Roth.  These maintenance releases are git-based only and
-	can be found at: http://repo.or.cz/w/libtar.git
 	Both git downloads and tarball downloads are possible at this site.
 
+
+libtar 1.2.15 - 2012/05/10 (Chris Frey)
+-------------
+Chris Frey (1):
+      Fixed harmless buffer overflow which is caught by FORTIFY on some systems
+
+
+libtar 1.2.14 - 2011/12/22 (Chris Frey)
+-------------
 Chris Frey (1):
       Fixed truncation check, so 100 char names get GNU extension support when enabled
 
 
-libtar 1.2.13 - 2011/06/13
+libtar 1.2.13 - 2011/06/13 (Chris Frey)
 -------------
-
-This is a maintenance release by Chris Frey, temporarily stepping in for
-Mark Roth.  These maintenance releases are git-based only and can be
-found at: http://repo.or.cz/w/libtar.git
-
 Chris Frey (10):
       Fixed incorrect URL in readme
       Added autoconf/ as macro dir
