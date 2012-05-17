@@ -85,10 +85,10 @@ ${LIBTAR_OBJS}: ${LIBTAR_HDRS}
 %.lo: $(srcdir)/%.c
 	$(LIBTOOL) --mode=compile ${CC} ${CFLAGS} ${CPPFLAGS} -c -o $@ $<
 
-%.lo: listhash/%.c
+%.lo: ../listhash/%.c
 	$(LIBTOOL) --mode=compile ${CC} ${CFLAGS} ${CPPFLAGS} -c -o $@ $<
 
-%.lo: compat/%.c
+%.lo: ${top_srcdir}/compat/%.c
 	$(LIBTOOL) --mode=compile ${CC} ${CFLAGS} ${CPPFLAGS} -c -o $@ $<
 
 clean:
