@@ -7,6 +7,11 @@
 	Both git downloads and tarball downloads are possible at this site.
 
 
+libtar 1.2.16 - 2012/05/17 (Chris Frey)
+-------------
+      Fixed build system to allow for out-of-source tree builds
+
+
 libtar 1.2.15 - 2012/05/10 (Chris Frey)
 -------------
 Chris Frey (1):
