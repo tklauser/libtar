@@ -27,8 +27,6 @@
 void
 th_finish(TAR *t)
 {
-	int i, sum = 0;
-
 	if (t->options & TAR_GNU)
 	{
 		/* we're aiming for this result, but must do it in
@@ -45,11 +43,7 @@ th_finish(TAR *t)
 		strncpy(t->th_buf.magic, TMAGIC, TMAGLEN);
 	}
 
-	for (i = 0; i < T_BLOCKSIZE; i++)
-		sum += ((char *)(&(t->th_buf)))[i];
-	for (i = 0; i < 8; i++)
-		sum += (' ' - t->th_buf.chksum[i]);
-	int_to_oct(sum, t->th_buf.chksum, 8);
+	int_to_oct(th_crc_calc(t), t->th_buf.chksum, 8);
 }
 
 
