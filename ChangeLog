@@ -7,6 +7,11 @@
 	Both git downloads and tarball downloads are possible at this site.
 
 
+libtar 1.2.17 - 2012/07/24 (Chris Frey)
+-------------
+      Applied Tim Band's checksum patch from mailing list (thanks!)
+
+
 libtar 1.2.16 - 2012/05/17 (Chris Frey)
 -------------
       Fixed build system to allow for out-of-source tree builds
