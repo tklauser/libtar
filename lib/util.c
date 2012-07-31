@@ -127,6 +127,21 @@ th_crc_calc(TAR *t)
 }
 
 
+/* calculate a signed header checksum */
+int
+th_signed_crc_calc(TAR *t)
+{
+	int i, sum = 0;
+
+	for (i = 0; i < T_BLOCKSIZE; i++)
+		sum += ((signed char *)(&(t->th_buf)))[i];
+	for (i = 0; i < 8; i++)
+		sum += (' ' - (signed char)t->th_buf.chksum[i]);
+
+	return sum;
+}
+
+
 /* string-octal to integer conversion */
 int
 oct_to_int(char *oct)
