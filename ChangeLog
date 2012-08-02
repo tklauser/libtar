@@ -7,6 +7,16 @@
 	Both git downloads and tarball downloads are possible at this site.
 
 
+libtar 1.2.18 - 2012/08/02 (Chris Frey)
+-------------
+      Added more forgiving CRC checking logic when reading tar files
+
+      Note: If your application uses the macro th_crc_ok(), then to gain full
+      advantage of the changes in this version, you will need to recompile
+      your application against the new headers.  Otherwise, the library is
+      drop-in replaceable, as usual.
+
+
 libtar 1.2.17 - 2012/07/24 (Chris Frey)
 -------------
       Applied Tim Band's checksum patch from mailing list (thanks!)
