@@ -493,7 +493,7 @@ static long double abs_val (long double value)
   return result;
 }
 
-static long double pow10 (int exp)
+static long double pow10_ (int exp)
 {
   long double result = 1;
 
@@ -506,7 +506,7 @@ static long double pow10 (int exp)
   return result;
 }
 
-static long round (long double value)
+static long round_ (long double value)
 {
   long intpart;
 
@@ -567,12 +567,12 @@ static void fmtfp (char *buffer, size_t *currlen, size_t maxlen,
   /* We "cheat" by converting the fractional part to integer by
    * multiplying by a factor of 10
    */
-  fracpart = round ((pow10 (max)) * (ufvalue - intpart));
+  fracpart = round_ ((pow10_ (max)) * (ufvalue - intpart));
 
-  if (fracpart >= pow10 (max))
+  if (fracpart >= pow10_ (max))
   {
     intpart++;
-    fracpart -= pow10 (max);
+    fracpart -= pow10_ (max);
   }
 
 #ifdef DEBUG_SNPRINTF
