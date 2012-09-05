@@ -38,6 +38,9 @@
  *    missing.  Some systems only have snprintf() but not vsnprintf(), so
  *    the code is now broken down under HAVE_SNPRINTF and HAVE_VSNPRINTF.
  *
+ *  Chris Frey <cdfrey@foursquare.net> 2012/09/05
+ *    Removed varargs.h and all dependency on it.
+ *
  **************************************************************/
 
 #include <config.h>
@@ -48,31 +51,11 @@
 # include <ctype.h>
 #include <sys/types.h>
 
-/* Define this as a fall through, HAVE_STDARG_H is probably already set */
-
-#define HAVE_VARARGS_H
-
-/* varargs declarations: */
-
-#if defined(HAVE_STDARG_H)
-# include <stdarg.h>
-# define HAVE_STDARGS    /* let's hope that works everywhere (mj) */
-# define VA_LOCAL_DECL   va_list ap
-# define VA_START(f)     va_start(ap, f)
-# define VA_SHIFT(v,t)  ;   /* no-op for ANSI */
-# define VA_END          va_end(ap)
-#else
-# if defined(HAVE_VARARGS_H)
-#  include <varargs.h>
-#  undef HAVE_STDARGS
-#  define VA_LOCAL_DECL   va_list ap
-#  define VA_START(f)     va_start(ap)      /* f is ignored! */
-#  define VA_SHIFT(v,t) v = va_arg(ap,t)
-#  define VA_END        va_end(ap)
-# else
-/*XX ** NO VARARGS ** XX*/
-# endif
-#endif
+#include <stdarg.h>
+#define VA_LOCAL_DECL   va_list ap
+#define VA_START(f)     va_start(ap, f)
+#define VA_SHIFT(v,t)  ;   /* no-op for ANSI */
+#define VA_END          va_end(ap)
 
 /*int snprintf (char *str, size_t count, const char *fmt, ...);*/
 /*int vsnprintf (char *str, size_t count, const char *fmt, va_list arg);*/
@@ -688,20 +671,10 @@ int mutt_vsnprintf (char *str, size_t count, const char *fmt, va_list args)
 #endif /* !HAVE_VSNPRINTF */
 
 #ifndef HAVE_SNPRINTF
-/* VARARGS3 */
-#ifdef HAVE_STDARGS
 int mutt_snprintf (char *str,size_t count,const char *fmt,...)
-#else
-int mutt_snprintf (va_alist) va_dcl
-#endif
 {
-#ifndef HAVE_STDARGS
-  char *str;
-  size_t count;
-  char *fmt;
-#endif
   VA_LOCAL_DECL;
-    
+
   VA_START (fmt);
   VA_SHIFT (str, char *);
   VA_SHIFT (count, size_t );
