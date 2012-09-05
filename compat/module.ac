@@ -206,7 +206,7 @@ AC_DEFUN([COMPAT_FUNC_MAKEDEV], [
             [Define if you want to use the makedev function])
   AC_CACHE_CHECK([whether makedev expects three arguments],
     [compat_cv_func_makedev_three_args],
-    [AC_RUN_IFELSE([
+    [AC_COMPILE_IFELSE([
       AC_LANG_PROGRAM([[
 #include <sys/types.h>
 #ifdef MAJOR_IN_MKDEV
