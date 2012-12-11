@@ -7,6 +7,20 @@
 	Both git downloads and tarball downloads are possible at this site.
 
 
+libtar 1.2.19 - 2012/12/11 (Chris Frey)
+-------------
+      Removed varargs.h and all dependencies, to avoid user compile errors
+
+      Fixed some short int / int compiler warnings in va_arg() usage
+
+      Fixed some gcc built-in compiler warnings
+
+      Changed autoconf support code from AC_RUN_ to AC_COMPILE_ to fix
+      issues reported during cross-compiling.
+
+      Applied most of Jan Cermak's const char* function argument patch.
+
+
 libtar 1.2.18 - 2012/08/02 (Chris Frey)
 -------------
       Added more forgiving CRC checking logic when reading tar files
