@@ -68,7 +68,7 @@ th_set_type(TAR *t, mode_t mode)
 
 /* encode file path */
 void
-th_set_path(TAR *t, char *pathname)
+th_set_path(TAR *t, const char *pathname)
 {
 	char suffix[2] = "";
 	char *tmp;
@@ -116,7 +116,7 @@ th_set_path(TAR *t, char *pathname)
 
 /* encode link path */
 void
-th_set_link(TAR *t, char *linkname)
+th_set_link(TAR *t, const char *linkname)
 {
 #ifdef DEBUG
 	printf("==> th_set_link(th, linkname=\"%s\")\n", linkname);
