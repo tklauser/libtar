@@ -15,6 +15,9 @@
 #ifndef @LISTHASH_PREFIX@_LISTHASH_H
 #define @LISTHASH_PREFIX@_LISTHASH_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /***** list.c **********************************************************/
 
@@ -191,6 +194,10 @@ int @LISTHASH_PREFIX@_hash_add(@LISTHASH_PREFIX@_hash_t *, void *);
 /* delete an entry */
 int @LISTHASH_PREFIX@_hash_del(@LISTHASH_PREFIX@_hash_t *,
 			       @LISTHASH_PREFIX@_hashptr_t *);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* ! @LISTHASH_PREFIX@_LISTHASH_H */
 
