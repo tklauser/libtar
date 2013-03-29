@@ -26,7 +26,7 @@
 char *
 th_get_pathname(TAR *t)
 {
-	static __thread char filename[MAXPATHLEN];
+	static TLS_THREAD char filename[MAXPATHLEN];
 
 	if (t->th_buf.gnu_longname)
 		return t->th_buf.gnu_longname;
