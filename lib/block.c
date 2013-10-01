@@ -90,8 +90,8 @@ th_read_internal(TAR *t)
 int
 th_read(TAR *t)
 {
-	int i, j;
-	size_t sz;
+	int i;
+	size_t sz, j, blocks;
 	char *ptr;
 
 #ifdef DEBUG
@@ -118,21 +118,26 @@ th_read(TAR *t)
 	if (TH_ISLONGLINK(t))
 	{
 		sz = th_get_size(t);
-		j = (sz / T_BLOCKSIZE) + (sz % T_BLOCKSIZE ? 1 : 0);
+		blocks = (sz / T_BLOCKSIZE) + (sz % T_BLOCKSIZE ? 1 : 0);
+		if (blocks > ((size_t)-1 / T_BLOCKSIZE))
+		{
+			errno = E2BIG;
+			return -1;
+		}
 #ifdef DEBUG
 		printf("    th_read(): GNU long linkname detected "
-		       "(%ld bytes, %d blocks)\n", sz, j);
+		       "(%ld bytes, %d blocks)\n", sz, blocks);
 #endif
-		t->th_buf.gnu_longlink = (char *)malloc(j * T_BLOCKSIZE);
+		t->th_buf.gnu_longlink = (char *)malloc(blocks * T_BLOCKSIZE);
 		if (t->th_buf.gnu_longlink == NULL)
 			return -1;
 
-		for (ptr = t->th_buf.gnu_longlink; j > 0;
-		     j--, ptr += T_BLOCKSIZE)
+		for (j = 0, ptr = t->th_buf.gnu_longlink; j < blocks;
+		     j++, ptr += T_BLOCKSIZE)
 		{
 #ifdef DEBUG
 			printf("    th_read(): reading long linkname "
-			       "(%d blocks left, ptr == %ld)\n", j, ptr);
+			       "(%d blocks left, ptr == %ld)\n", blocks-j, ptr);
 #endif
 			i = tar_block_read(t, ptr);
 			if (i != T_BLOCKSIZE)
@@ -163,21 +168,26 @@ th_read(TAR *t)
 	if (TH_ISLONGNAME(t))
 	{
 		sz = th_get_size(t);
-		j = (sz / T_BLOCKSIZE) + (sz % T_BLOCKSIZE ? 1 : 0);
+		blocks = (sz / T_BLOCKSIZE) + (sz % T_BLOCKSIZE ? 1 : 0);
+		if (blocks > ((size_t)-1 / T_BLOCKSIZE))
+		{
+			errno = E2BIG;
+			return -1;
+		}
 #ifdef DEBUG
 		printf("    th_read(): GNU long filename detected "
-		       "(%ld bytes, %d blocks)\n", sz, j);
+		       "(%ld bytes, %d blocks)\n", sz, blocks);
 #endif
-		t->th_buf.gnu_longname = (char *)malloc(j * T_BLOCKSIZE);
+		t->th_buf.gnu_longname = (char *)malloc(blocks * T_BLOCKSIZE);
 		if (t->th_buf.gnu_longname == NULL)
 			return -1;
 
-		for (ptr = t->th_buf.gnu_longname; j > 0;
-		     j--, ptr += T_BLOCKSIZE)
+		for (j = 0, ptr = t->th_buf.gnu_longname; j < blocks;
+		     j++, ptr += T_BLOCKSIZE)
 		{
 #ifdef DEBUG
 			printf("    th_read(): reading long filename "
-			       "(%d blocks left, ptr == %ld)\n", j, ptr);
+			       "(%d blocks left, ptr == %ld)\n", blocks-j, ptr);
 #endif
 			i = tar_block_read(t, ptr);
 			if (i != T_BLOCKSIZE)
