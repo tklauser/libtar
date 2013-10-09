@@ -7,6 +7,14 @@
 	Both git downloads and tarball downloads are possible at this site.
 
 
+libtar 1.2.20 - 2013/10/09 (Chris Frey)
+-------------
+      Added extern "C" protectors to listhash.h
+      Added autoconf checks for __thread compiler support
+      Fixed size_t overflow bug, as reported by Timo Warns
+      Fixed thread-safe bug in th_get_pathname() (Sergey Zhitomirsky)
+
+
 libtar 1.2.19 - 2012/12/11 (Chris Frey)
 -------------
       Removed varargs.h and all dependencies, to avoid user compile errors
