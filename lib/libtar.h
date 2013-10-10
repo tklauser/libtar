@@ -26,6 +26,7 @@ extern "C"
 
 
 /* useful constants */
+/* see FIXME note in block.c regarding T_BLOCKSIZE */
 #define T_BLOCKSIZE		512
 #define T_NAMELEN		100
 #define T_PREFIXLEN		155
