@@ -228,13 +228,17 @@ tar_extract_regfile(TAR *t, char *realname)
 		{
 			if (k != -1)
 				errno = EINVAL;
+			close(fdout);
 			return -1;
 		}
 
 		/* write block to output file */
 		if (write(fdout, buf,
 			  ((i > T_BLOCKSIZE) ? T_BLOCKSIZE : i)) == -1)
+		{
+			close(fdout);
 			return -1;
+		}
 	}
 
 	/* close output file */

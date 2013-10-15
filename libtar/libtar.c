@@ -83,7 +83,10 @@ gzopen_frontend(char *pathname, int oflags, int mode)
 		return -1;
 
 	if ((oflags & O_CREAT) && fchmod(fd, mode))
+	{
+		close(fd);
 		return -1;
+	}
 
 	gzf = gzdopen(fd, gzoflags);
 	if (!gzf)

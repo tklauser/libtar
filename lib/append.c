@@ -216,6 +216,7 @@ tar_append_regfile(TAR *t, const char *realname)
 	int filefd;
 	int i, j;
 	size_t size;
+	int rv = -1;
 
 	filefd = open(realname, O_RDONLY);
 	if (filefd == -1)
@@ -234,25 +235,28 @@ tar_append_regfile(TAR *t, const char *realname)
 		{
 			if (j != -1)
 				errno = EINVAL;
-			return -1;
+			goto fail;
 		}
 		if (tar_block_write(t, &block) == -1)
-			return -1;
+			goto fail;
 	}
 
 	if (i > 0)
 	{
 		j = read(filefd, &block, i);
 		if (j == -1)
-			return -1;
+			goto fail;
 		memset(&(block[i]), 0, T_BLOCKSIZE - i);
 		if (tar_block_write(t, &block) == -1)
-			return -1;
+			goto fail;
 	}
 
+	/* success! */
+	rv = 0;
+fail:
 	close(filefd);
 
-	return 0;
+	return rv;
 }
 
 
