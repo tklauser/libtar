@@ -148,9 +148,7 @@ oct_to_int(char *oct)
 {
 	int i;
 
-	sscanf(oct, "%o", &i);
-
-	return i;
+	return sscanf(oct, "%o", &i) == 1 ? i : 0;
 }
 
 
