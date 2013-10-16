@@ -82,6 +82,7 @@ tar_open(TAR **t, const char *pathname, tartype_t *type,
 	(*t)->fd = (*((*t)->type->openfunc))(pathname, oflags, mode);
 	if ((*t)->fd == -1)
 	{
+		libtar_hash_free((*t)->h, NULL);
 		free(*t);
 		return -1;
 	}
