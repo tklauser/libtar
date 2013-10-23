@@ -26,20 +26,30 @@
 char *
 th_get_pathname(TAR *t)
 {
-	static TLS_THREAD char filename[MAXPATHLEN];
-
 	if (t->th_buf.gnu_longname)
 		return t->th_buf.gnu_longname;
 
-	if (t->th_buf.prefix[0] != '\0')
+	/* allocate the th_pathname buffer if not already */
+	if (t->th_pathname == NULL)
 	{
-		snprintf(filename, sizeof(filename), "%.155s/%.100s",
-			 t->th_buf.prefix, t->th_buf.name);
-		return filename;
+		t->th_pathname = malloc(MAXPATHLEN * sizeof(char));
+		if (t->th_pathname == NULL)
+			/* out of memory */
+			return NULL;
 	}
 
-	snprintf(filename, sizeof(filename), "%.100s", t->th_buf.name);
-	return filename;
+	if (t->th_buf.prefix[0] == '\0')
+	{
+		snprintf(t->th_pathname, MAXPATHLEN, "%.100s", t->th_buf.name);
+	}
+	else
+	{
+		snprintf(t->th_pathname, MAXPATHLEN, "%.155s/%.100s",
+			 t->th_buf.prefix, t->th_buf.name);
+	}
+
+	/* will be deallocated in tar_close() */
+	return t->th_pathname;
 }
 
 

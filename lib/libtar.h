@@ -86,6 +86,9 @@ typedef struct
 	int options;
 	struct tar_header th_buf;
 	libtar_hash_t *h;
+
+	/* introduced in libtar 1.2.21 */
+	char *th_pathname;
 }
 TAR;
 
