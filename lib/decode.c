@@ -13,6 +13,7 @@
 #include <internal.h>
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <sys/param.h>
 #include <pwd.h>
 #include <grp.h>
