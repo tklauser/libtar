@@ -13,8 +13,10 @@ Here are some of its features:
 Installation
 ------------
 
-To build libtar, you should be able to simply run these commands:
+To build libtar, ensure that autoconf and libtool are both installed on
+your system, then run these commands:
 
+   autoreconf --force --install
    ./configure
    make
    make install
