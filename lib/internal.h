@@ -21,3 +21,4 @@
 #define TLS_THREAD
 #endif
 
+char* safer_name_suffix(char const*);

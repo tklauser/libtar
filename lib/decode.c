@@ -22,13 +22,42 @@
 # include <string.h>
 #endif
 
+char *
+safer_name_suffix (char const *file_name)
+{
+	char const *p, *t;
+	p = t = file_name;
+	while (*p == '/') t = ++p;
+	while (*p)
+	{
+		while (p[0] == '.' && p[0] == p[1] && p[2] == '/')
+		{
+			p += 3;
+			t = p;
+		}
+		/* advance pointer past the next slash */
+		while (*p && (p++)[0] != '/');
+	}
+
+	if (!*t)
+	{
+		t = ".";
+	}
+
+	if (t != file_name)
+	{
+		/* TODO: warn somehow that the path was modified */
+	}
+	return (char*)t;
+}
+
 
 /* determine full path name */
 char *
 th_get_pathname(TAR *t)
 {
 	if (t->th_buf.gnu_longname)
-		return t->th_buf.gnu_longname;
+		return safer_name_suffix(t->th_buf.gnu_longname);
 
 	/* allocate the th_pathname buffer if not already */
 	if (t->th_pathname == NULL)
@@ -50,7 +79,7 @@ th_get_pathname(TAR *t)
 	}
 
 	/* will be deallocated in tar_close() */
-	return t->th_pathname;
+	return safer_name_suffix(t->th_pathname);
 }
 
 
