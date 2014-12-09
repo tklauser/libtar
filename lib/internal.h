@@ -10,6 +10,9 @@
 **  University of Illinois at Urbana-Champaign
 */
 
+#ifndef INTERNAL_H
+#define INTERNAL_H
+
 #include <config.h>
 #include <compat.h>
 
@@ -22,3 +25,5 @@
 #endif
 
 char* safer_name_suffix(char const*);
+
+#endif
