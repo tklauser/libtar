@@ -111,8 +111,10 @@ tar_append_file(TAR *t, const char *realname, const char *savename)
 			return -1;
 		td->td_dev = s.st_dev;
 		td->td_h = libtar_hash_new(256, (libtar_hashfunc_t)ino_hash);
-		if (td->td_h == NULL)
+		if (td->td_h == NULL) {
+			free(td);
 			return -1;
+		}
 		if (libtar_hash_add(t->h, td) == -1)
 			return -1;
 	}
