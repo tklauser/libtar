@@ -92,6 +92,7 @@ tar_extract_all(TAR *t, char *prefix)
 int
 tar_append_tree(TAR *t, char *realdir, char *savedir)
 {
+	int ret = -1;
 	char realpath[MAXPATHLEN];
 	char savepath[MAXPATHLEN];
 	struct dirent *dent;
@@ -130,24 +131,26 @@ tar_append_tree(TAR *t, char *realdir, char *savedir)
 				 dent->d_name);
 
 		if (lstat(realpath, &s) != 0)
-			return -1;
+			goto out;
 
 		if (S_ISDIR(s.st_mode))
 		{
 			if (tar_append_tree(t, realpath,
 					    (savedir ? savepath : NULL)) != 0)
-				return -1;
+				goto out;
 			continue;
 		}
 
 		if (tar_append_file(t, realpath,
 				    (savedir ? savepath : NULL)) != 0)
-			return -1;
+			goto out;
 	}
 
-	closedir(dp);
+	ret = 0;
 
-	return 0;
+out:
+	closedir(dp);
+	return ret;
 }
 
 
