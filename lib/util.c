@@ -151,6 +151,15 @@ oct_to_int(char *oct)
 	return sscanf(oct, "%o", &i) == 1 ? i : 0;
 }
 
+/* string-octal to size_t conversion */
+size_t
+oct_to_size(char *oct)
+{
+	size_t i;
+
+	return sscanf(oct, "%lo", &i) == 1 ? i : 0;
+}
+
 
 /* integer to string-octal conversion, no NULL */
 void
