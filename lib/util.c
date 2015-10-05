@@ -157,7 +157,7 @@ oct_to_size(char *oct)
 {
 	size_t i;
 
-	return sscanf(oct, "%lo", &i) == 1 ? i : 0;
+	return sscanf(oct, "%zo", &i) == 1 ? i : 0;
 }
 
 
