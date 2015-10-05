@@ -85,7 +85,6 @@ tar_set_file_perms(TAR *t, char *realname)
 	return 0;
 }
 
-
 /* switchboard */
 int
 tar_extract_file(TAR *t, char *realname)
@@ -159,7 +158,7 @@ tar_extract_regfile(TAR *t, char *realname)
 	uid_t uid;
 	gid_t gid;
 	int fdout;
-	int i, k;
+	ssize_t i, k;
 	char buf[T_BLOCKSIZE];
 	char *filename;
 
@@ -257,7 +256,7 @@ tar_extract_regfile(TAR *t, char *realname)
 int
 tar_skip_regfile(TAR *t)
 {
-	int i, k;
+	ssize_t i, k;
 	size_t size;
 	char buf[T_BLOCKSIZE];
 

@@ -185,11 +185,7 @@ int th_write(TAR *t);
 
 /* decode tar header info */
 #define th_get_crc(t) oct_to_int((t)->th_buf.chksum)
-/* We cast from int (what oct_to_int() returns) to
-   unsigned int, to avoid unwieldy sign extensions
-   from occurring on systems where size_t is bigger than int,
-   since th_get_size() is often stored into a size_t. */
-#define th_get_size(t) ((unsigned int)oct_to_int((t)->th_buf.size))
+#define th_get_size(t) oct_to_size((t)->th_buf.size)
 #define th_get_mtime(t) oct_to_int((t)->th_buf.mtime)
 #define th_get_devmajor(t) oct_to_int((t)->th_buf.devmajor)
 #define th_get_devminor(t) oct_to_int((t)->th_buf.devminor)
@@ -282,6 +278,7 @@ int th_signed_crc_calc(TAR *t);
 
 /* string-octal to integer conversion */
 int oct_to_int(char *oct);
+size_t oct_to_size(char *oct);
 
 /* integer to NULL-terminated string-octal conversion */
 #define int_to_oct(num, oct, octlen) \
