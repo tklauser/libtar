@@ -68,7 +68,14 @@ th_get_pathname(TAR *t)
 			return NULL;
 	}
 
-	if (t->th_buf.prefix[0] == '\0')
+	/*
+	 * Old GNU headers (also used by newer GNU tar when doing incremental
+	 * dumps) use the POSIX prefix field for many other things, such as
+	 * mtime and ctime. New-style GNU headers don't, but also don't use the
+	 * POSIX prefix field. Thus, only honor the prefix field if the archive
+	 * is actually a POSIX archive. This is the same logic as GNU tar uses.
+	 */
+	if (strncmp(t->th_buf.magic, TMAGIC, TMAGLEN - 1) != 0 || t->th_buf.prefix[0] == '\0')
 	{
 		snprintf(t->th_pathname, MAXPATHLEN, "%.100s", t->th_buf.name);
 	}
