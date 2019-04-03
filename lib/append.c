@@ -53,6 +53,11 @@ tar_dev_free(tar_dev_t *tdp)
 	free(tdp);
 }
 
+static unsigned int ino_hash_wrap(void *p, unsigned int n)
+{
+	(void)n;
+	return (unsigned int)ino_hash(p);
+}
 
 /* appends a file to the tar archive */
 int
@@ -110,7 +115,7 @@ tar_append_file(TAR *t, const char *realname, const char *savename)
 		if (td == NULL)
 			return -1;
 		td->td_dev = s.st_dev;
-		td->td_h = libtar_hash_new(256, (libtar_hashfunc_t)ino_hash);
+		td->td_h = libtar_hash_new(256, ino_hash_wrap);
 		if (td->td_h == NULL) {
 			free(td);
 			return -1;

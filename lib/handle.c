@@ -29,6 +29,11 @@ const char libtar_version[] = PACKAGE_VERSION;
 
 static tartype_t default_type = { open, close, read, write };
 
+static unsigned int dev_hash_wrap(void *p, unsigned int n)
+{
+	(void)n;
+	return (unsigned int)dev_hash(p);
+}
 
 static int
 tar_init(TAR **t, const char *pathname, tartype_t *type,
@@ -53,7 +58,7 @@ tar_init(TAR **t, const char *pathname, tartype_t *type,
 		(*t)->h = libtar_hash_new(256,
 					  (libtar_hashfunc_t)path_hashfunc);
 	else
-		(*t)->h = libtar_hash_new(16, (libtar_hashfunc_t)dev_hash);
+		(*t)->h = libtar_hash_new(16, dev_hash_wrap);
 	if ((*t)->h == NULL)
 	{
 		free(*t);
