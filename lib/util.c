@@ -151,21 +151,21 @@ oct_to_int(char *oct)
 	return sscanf(oct, "%o", &i) == 1 ? i : 0;
 }
 
-/* string-octal to size_t conversion */
-size_t
+/* string-octal to filesize conversion */
+off_t
 oct_to_size(char *oct)
 {
-	size_t i;
+	unsigned long long i;
 
-	return sscanf(oct, "%zo", &i) == 1 ? i : 0;
+	return sscanf(oct, "%llo", &i) == 1 ? i : 0;
 }
 
 
 /* integer to string-octal conversion, no NULL */
 void
-int_to_oct_nonull(int num, char *oct, size_t octlen)
+int_to_oct_nonull(off_t num, char *oct, size_t octlen)
 {
-	snprintf(oct, octlen, "%*lo", (int)(octlen - 1), (unsigned long)num);
+	snprintf(oct, octlen, "%*llo", (int)(octlen - 1), (unsigned long long)num);
 	oct[octlen - 1] = ' ';
 }
 
