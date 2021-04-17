@@ -31,6 +31,8 @@ AC_DEFUN([COMPAT_FUNC_BASENAME], [
     [compat_cv_func_basename_works],
     [AC_TRY_RUN([
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #ifdef HAVE_LIBGEN_H
 # include <libgen.h>
 #endif
@@ -85,6 +87,8 @@ AC_DEFUN([COMPAT_FUNC_DIRNAME], [
     [compat_cv_func_dirname_works],
     [AC_TRY_RUN([
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #ifdef HAVE_LIBGEN_H
 # include <libgen.h>
 #endif
@@ -157,6 +161,7 @@ AC_DEFUN([COMPAT_FUNC_GLOB], [
     [compat_cv_func_glob_works],
     [AC_TRY_RUN([
 #include <stdio.h>
+#include <stdlib.h>
 #ifdef HAVE_GLOB_H
 # include <glob.h>
 #endif
@@ -208,6 +213,7 @@ AC_DEFUN([COMPAT_FUNC_MAKEDEV], [
     [compat_cv_func_makedev_three_args],
     [AC_COMPILE_IFELSE([
       AC_LANG_PROGRAM([[
+#include <stdlib.h>
 #include <sys/types.h>
 #ifdef MAJOR_IN_MKDEV
 # include <sys/mkdev.h>
@@ -248,6 +254,8 @@ AC_DEFUN([COMPAT_FUNC_SNPRINTF], [
     [compat_cv_func_snprintf_works],
     [AC_TRY_RUN([
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 typedef struct {
   int length;
