@@ -143,30 +143,54 @@ th_signed_crc_calc(TAR *t)
 
 
 /* string-octal to integer conversion */
-int
-oct_to_int(char *oct)
+off_t
+oct_to_int_bounds(char *oct, int len, off_t min, off_t max)
 {
-	int i;
+	long long i;
+	if (oct[0] & 0x80) {
+		// common base 256 extension
 
-	return sscanf(oct, "%o", &i) == 1 ? i : 0;
+		// sign-extend
+		i = (oct[0] & 0x40) ? (off_t)-1 << ((len - 1) * 8) : 0;
+		// remove sign from first byte
+		i |= (off_t)(oct[0] & 0x7f) << ((len - 1) * 8);
+		// base 256
+		for (int w = 1; w < len; w ++) {
+			i |= (off_t)oct[w] << ((len - 1 - w) * 8);
+		}
+	} else {
+		if (sscanf(oct, "%llo", &i) == 0) {
+			i = 0;
+		}
+	}
+	return (i >= min && i <= max) ? i : 0;
 }
 
-/* string-octal to size_t conversion */
-size_t
-oct_to_size(char *oct)
+/* integer to NULL-terminated string-octal conversion */
+void
+int_to_oct(off_t num, char * oct, int octlen)
 {
-	size_t i;
-
-	return sscanf(oct, "%zo", &i) == 1 ? i : 0;
+	int_to_oct_nonull(num, oct, octlen - 1);
+	oct[octlen - 1] = '\0';
 }
 
 
 /* integer to string-octal conversion, no NULL */
 void
-int_to_oct_nonull(int num, char *oct, size_t octlen)
+int_to_oct_nonull(off_t num, char *oct, size_t octlen)
 {
-	snprintf(oct, octlen, "%*lo", (int)(octlen - 1), (unsigned long)num);
-	oct[octlen - 1] = ' ';
+	if (num >= 0 && num <= 077777777777) {
+		snprintf(oct, octlen, "%*llo", (int)(octlen - 1), (unsigned long long)num);
+		oct[octlen - 1] = ' ';
+	} else {
+		// common base 256 extension
+		while (octlen) {
+			octlen --;
+			oct[octlen] = num & 0xff;
+			num >>= 8;
+		}
+		oct[0] |= 0x80;
+	}
 }
 
 

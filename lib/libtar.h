@@ -16,8 +16,13 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <tar.h>
+#include <unistd.h>
 
 #include <libtar_listhash.h>
+
+#if (defined(_POSIX_V6_ILP32_OFF32) || defined(_POSIX_V7_ILP32_OFF32)) && _FILE_OFFSET_BITS != 64
+    #warning _FILE_OFFSET_BITS is not set to 64. libtar may demonstrate errors.
+#endif
 
 #ifdef __cplusplus
 extern "C"
@@ -277,15 +282,15 @@ int th_signed_crc_calc(TAR *t);
 #define th_crc_ok(t) (th_get_crc(t) == th_crc_calc(t) || th_get_crc(t) == th_signed_crc_calc(t))
 
 /* string-octal to integer conversion */
-int oct_to_int(char *oct);
-size_t oct_to_size(char *oct);
+#define oct_to_int(value) oct_to_int_bounds(value, sizeof(value), 0, ~0 ^ (int)1<<sizeof(int)*8-1)
+#define oct_to_size(value) oct_to_int_bounds(value, sizeof(value), 0, ~0 ^ (off_t)1<<sizeof(off_t)*8-1)
+off_t oct_to_int_bounds(char *oct, int len, off_t min, off_t max);
 
 /* integer to NULL-terminated string-octal conversion */
-#define int_to_oct(num, oct, octlen) \
-	snprintf((oct), (octlen), "%*lo ", (octlen) - 2, (unsigned long)(num))
+void int_to_oct(off_t num, char * oct, int octlen);
 
 /* integer to string-octal conversion, no NULL */
-void int_to_oct_nonull(int num, char *oct, size_t octlen);
+void int_to_oct_nonull(off_t num, char *oct, size_t octlen);
 
 
 /***** wrapper.c **********************************************************/

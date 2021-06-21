@@ -49,6 +49,10 @@ so your version of libtar will not be thread-safe.
 fi
 
 
+dnl ### Eable large file support. ##################################
+AC_SYS_LARGEFILE
+
+
 dnl ### Checks for header files. ###################################
 AC_HEADER_STDC
 AC_CHECK_HEADERS([unistd.h])
